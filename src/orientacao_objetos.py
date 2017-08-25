@@ -39,11 +39,34 @@ class Animal:
         print("Esse é um método privado.")
 
 
+class Cachorro(Animal):
+    __possuiRabo = True
+
+    def __init__(self, nome, idade=1, possuiRabo=True):
+        self.__possuiRabo = possuiRabo
+        super().__init__(nome, idade)
+
+    @property
+    def possuiRabo(self):
+        return self.__possuiRabo
+
+    @possuiRabo.setter
+    def possuiRabo(self, possuiRabo):
+        self.__possuiRabo = possuiRabo
+
+    def cavar(self):
+        print("O cachorro", self.nome, " está cavando.")
+
+
+
 #animal1 = Animal(nome="Totó", idade=1)
-animal1 = Animal(nome="Totó")
+animal1 = Cachorro(nome="Totó", idade=10)
 #animal1.nome = "To"
 #animal1.idade = -3
 print(animal1.nome)
 print(animal1.idade)
 animal1.andar()
+#animal1.possuiRabo = False
+print(animal1.possuiRabo)
+animal1.cavar()
 del(animal1)

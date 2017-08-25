@@ -1,10 +1,12 @@
 class Animal:
     __nome = ""
     __idade = 0
+    _estaVivo = True
 
     def __init__(self, nome, idade = 0):
         self.__nome = nome
         self.__idade = idade
+        self.__estaVivo = True
 
     def __del__(self):
         print("O animal ", self.nome, " será eliminado da memória.")
@@ -31,9 +33,17 @@ class Animal:
         else:
             self.__idade = idade
 
+    @property
+    def estaVivo(self):
+        return self._estaVivo
+
     def andar(self):
         print("O animal ", self.__nome, " está andando!")
         self.__metodo_privado()
+
+    def morrer(self):
+        self._estaVivo = False
+        print("O animal ", self.__nome, " morreu :(")
 
     def __metodo_privado(self):
         print("Esse é um método privado.")
@@ -54,8 +64,15 @@ class Cachorro(Animal):
     def possuiRabo(self, possuiRabo):
         self.__possuiRabo = possuiRabo
 
+    def andar(self):
+        print("Agora o cachorro ", self.nome, "é quem está andando.")
+
     def cavar(self):
-        print("O cachorro", self.nome, " está cavando.")
+        if self.estaVivo:
+            print("O cachorro", self.nome, " está cavando.")
+            self._estaVivo = False
+        else:
+            print("O cachorro", self.nome, " já morreu :(")
 
 
 
@@ -68,5 +85,9 @@ print(animal1.idade)
 animal1.andar()
 #animal1.possuiRabo = False
 print(animal1.possuiRabo)
+animal1.cavar()
+print(animal1.estaVivo)
+animal1.morrer()
+print(animal1.estaVivo)
 animal1.cavar()
 del(animal1)
